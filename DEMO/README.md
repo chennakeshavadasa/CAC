@@ -1,7 +1,6 @@
 <a href="https://colab.research.google.com/drive/1q6r7tg8RoyLBaMS3b7EONwkPCBzEM2c1?usp=sharing" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 
-
 ---
 # **VLSI 2026 Code-a-Chip Competition**  
 ---
@@ -11,7 +10,6 @@
 ### A Proof of Concept: $R_{on}/g_m$ Based Design Methodology for Dynamic Amplifiers
 
  ---
-
 
 ## Team Overview
 
@@ -80,7 +78,6 @@ This work is licensed under **Apache 2.0**
 ---
 
 
-
 ## **How to Run This Notebook**
 
 ---
@@ -134,13 +131,11 @@ Update `data_path` in necessary cells to point to your local CSV directory if no
 ---
 
 
-
  # **Abstract**
  ---
  This work presents an $R_{on}/g_m$ based design methodology for Inverter based dynamic amplifiers(IBA), addressing a fundamental gap in existing approaches where the large-signal RC settling phase governed by the final stage device ON resistance $R_{on}$ remains uncharacterized until post-simulation. Unlike the conventional $g_m/I_D$ methodology, which targets only the small-signal transconductance, the proposed approach simultaneously co-designs both settling phases through pre-characterized device look-up tables (LUTs) derived from parametric SPICE simulations in the IHP SG13G2 130 nm BiCMOS process. These LUTs take into consideration of $R_{on}/g_m$ as a function of device geometry, bias, and process corner, making worst case corner behavior and valid bias deadzone boundaries directly readable at the design entry stage without iterative simulation. A head to head comparison with the $g_m/I_D$ methodology confirms that the $R_{on}/g_m$ approach achieves equivalent settling accuracy while substantially reducing design cycles and providing more useful information regarding deadzone bias requirement by surfacing process-corner sensitivity upfront.
 
  ---
-
 
 ## Table of Contents
 ---
@@ -178,7 +173,6 @@ Update `data_path` in necessary cells to point to your local CSV directory if no
 8. References
 
 ---
-
 
 # **1. Introduction**
 ---
@@ -244,7 +238,6 @@ In a conventional OTA, the designer cannot escape this coupling. The design spac
 > **How dynamic amplifiers change this:** Dynamic amplifiers **achieve lower power, lower noise, smaller area, and better speed** by **shrinking all four axes of the trade-off quadrilateral simultaneously**, rather than trading one against another. The key insight is that a dynamic amplifier **does not pay the static bias current cost at all times**. An OTA is always on always burning current, always generating noise, always occupying area tuned for worst-case signal conditions. A dynamic amplifier is quiescent until a clock edge fires it. It then draws current only during the settling transient, uses the **large-signal slewing phase** (high speed, very efficient per unit charge delivered) to do most of the work, and then settles precisely in the short small-signal phase. Because the large-signal phase is inherently nonlinear and event-driven, it is decoupled from the $g_m$–current–noise–area coupling that governs linear operation. The net result: dynamic amplifiers achieve **lower power, lower noise, smaller area, and better speed than an OTA at the same specification**. This is exactly why dynamic amplifiers become more attractive as CMOS scales since inverter-based structures inherently improve with every process node, unlike OTAs which degrade.
 ---
 
-
 # **2. Dynamic Amplifier**
 ---
 ## **2.1 Understanding Dynamic Amplifiers**
@@ -292,10 +285,7 @@ Outside the deadzone (during the large-signal phase), both transistors are drive
 
 
 
-
-![]({p})
-
-
+![](assets/anim_008_0.gif)
 
 <div align="center">
 
@@ -304,7 +294,6 @@ Outside the deadzone (during the large-signal phase), both transistors are drive
 </div>
 
 This two-phase behavior means the output **reaches closer to its final value in the first phase, then settles precisely in the second**, achieving both speed and accuracy that a **pure OTA cannot provide at the same power budget**.
-
 
 
 ---
@@ -350,10 +339,7 @@ As shown in **Fig. 5a**, the dynamic amplifier achieves significantly faster set
 Overall, this hybrid settling mechanism allows dynamic amplifiers to combine speed and precision more effectively than traditional linear OTAs.
 
 
-
-![]({p})
-
-
+![](assets/anim_011_0.gif)
 
 <div align="center">
 
@@ -421,7 +407,6 @@ The key limitation of this approach is that the entire methodology is fundamenta
 **Our work addresses this gap.** Rather than relying on an iterative simulation-based optimizer that is dependent on an empirical starting point, we propose a **pre-simulation design methodology** using the **$R_{on}/g_m$** parameter. This approach gives the designer quantitative insight into both the RC settling phase (governed by $R_{on}$) and the small-signal settling phase (governed by $g_m$), **enabling corner-aware transistor sizing directly from lookup tables *without any iterative SPICE runs***. The $R_{on}/g_m$ curves provides a starting point that [4] had to approximate, and in doing so rendering the optimizer loop itself unnecessary for the sizing step.
 
 ---
-
 
 
 
@@ -543,7 +528,6 @@ This decouples $g_m$ tuning from the fixed $R_{on}$ constraint, preserving large
 - The $R_{on}/g_m$ flow enables **pre-simulation corner verification**, a capability absent from the classical $g_m/I_D$ methodology.
 ---
 
-
 # 3. Simulation Environment Setup
 
 ---
@@ -579,7 +563,6 @@ Each output netlist can be run individually in Ngspice, producing
 a `.csv` output containing the sweep data.
 
 ---
-
 
 ## `.control` Block Explanation and Local Simulation Guide
 
@@ -681,7 +664,6 @@ XMN_GM_B net1 Vbias GND GND sg13_lv_nmos w={wx} l={lx} ng=1 m=1
 -----
 
 
-
 ### `.control` Block - Visual Flow Diagram
 ---
 
@@ -701,7 +683,6 @@ The table above describes each command; this diagram shows how they connect sequ
 
 > **Each (L, corner) combination produces one CSV file** 15 files total (5 lengths × 3 corners).  
 > Each file contains 13 W × 6 VDS × 24 (Ibias × VG) = **1872 data rows**.
-
 
 
 ---
@@ -725,7 +706,6 @@ The table above describes each command; this diagram shows how they connect sequ
 > from Verilog-A into a shared `.osdi` library. Both steps require ngspice 45.2
 > built with `--enable-osdi`.
 
-
 ---
 ## 3.2 Build Ngspice 45.2 from Source
 
@@ -738,13 +718,11 @@ We download the 45.2 source tarball from SourceForge and compile with three crit
 
  **This step takes ~9 minutes.** Build output is sent to log files to keep output clean.
 
-
 ## 3.3 Download IHP SG13G2 Model Files
 
 All `.lib` files are fetched from `chennakeshavadasa/gmid_IHP130` the same
 repo used in the original working attempt. Files land in `/content/models/` so
 all relative cross-includes inside the corner files resolve correctly.
-
 
 ---
 ## 3.4 Compile PSP 103.6 NQS Model → `psp103_nqs.osdi`
@@ -767,7 +745,6 @@ This step does three things:
 > interpreter patched to use conda's newer glibc. This is handled automatically.
 > If conda's glibc isn't found the binary is tried as-is, it works either way.
 
-
 ---
 ## 3.5 Write `.spiceinit` and Verify Readiness
 
@@ -786,7 +763,6 @@ simulation fails immediately.
 A readiness check runs at the end of this cell all four items should show ✅
 before proceeding to simulations.
 
-
 ---
 ## 3.6 Simulation Configuration
 
@@ -796,7 +772,6 @@ Define sweep parameters and verify all required files exist before launching.
 - **3 process corners:** `tt` (typical-typical), `ss` (slow-slow), `ff` (fast-fast)
 - **15 total simulations** - each sweeps width (1-10 µm) and V_DS (6 values)
   over a DC bias current sweep (5-30 µA in 5 µA steps)
-
 
 ---
 ## 3.7 Generate Netlists and Run All 15 Simulations
@@ -816,7 +791,6 @@ the verified local template and run with ngspice in batch mode.
 **Sweep:** $W$ = 1-10 µm, $V_{DS}$ = 6 values, $I_{bias}$ = 5-30 µA at each ($W$, $V_{DS}$) point  
 **Output:** One CSV per (length, corner) in `/content/simulation_results/`
 
-
 ### Netlist Generation Complete
 
 The cell above generated **15 SPICE netlists** (5 channel lengths x 3 process corners: TT, SS, FF), saved to `/content/spice_generated/`. Each netlist sweeps transistor width (W = 1-10 um) and V_DS across 6 values over a DC bias current range (5-30 uA).
@@ -824,11 +798,9 @@ The cell above generated **15 SPICE netlists** (5 channel lengths x 3 process co
 **Connection to the design flow:** These netlists are the simulation inputs that produce the look-up table (LUT) data for the Ron/gm methodology plots in the next section. Without this sweep, there is no data to read off $R_{on}$/$g_m$ vs $V_{bias}$, $g_m$/$I_d$, or voltage swing. Each resulting CSV represents one (L, corner) characterisation point in the design space.
 
 
-
 ### Simulations Complete - CSV Data Extracted
 
 All 15 simulations ran successfully. Each CSV in `/content/simulation_results/` contains the swept $R_{on}$, $g_m$, $V_{bias}$, width, and length data for one (L, corner) combination.
-
 
 
 
@@ -877,7 +849,6 @@ Each plot is generated by `plot_data()` using data from the simulation CSVs. The
 ---
 
 
-
 ### How to Read the Following 6 Design Plots
 
 Each of the 6 cells below calls `plot_data()`, which:
@@ -893,22 +864,13 @@ Each of the 6 cells below calls `plot_data()`, which:
 - Work left-to-right through the plots: start at Plot 1 to pick $R_{on}/g_m$, then use Plots 2–6 to confirm width, current, and swing requirements
 
 
+![](assets/fig_046_0.jpg)
 
-![]({p})
+![](assets/fig_047_0.jpg)
 
+![](assets/fig_048_0.jpg)
 
-
-![]({p})
-
-
-
-![]({p})
-
-
-
-![]({p})
-
-
+![](assets/fig_049_0.jpg)
 
 ## 4.1 $V_{bias}$ vs log($\frac{R_{on}}{g_m}$)
 ---
@@ -968,18 +930,11 @@ Width and current are coupled through $g_m$: increasing $W$ lowers $V_{bias}$ (t
 
 ---
 
+![](assets/fig_051_0.jpg)
 
-![]({p})
+![](assets/fig_052_0.jpg)
 
-
-
-![]({p})
-
-
-
-![]({p})
-
-
+![](assets/fig_053_0.jpg)
 
 ## 4.2 $V_{bias}$ vs $Width$
 ---
@@ -1015,22 +970,13 @@ For a **given $W$ and bias current, what $V_{bias}$ must be applied to the gate 
 
 Width and current are coupled through $g_m$: increasing $W$ lowers $V_{bias}$ but also lowers $R_{on}$, which affects the non-linear RC settling speed (Plot 3). Reading Plot 2 together with Plot 1 ($V_{bias}$ vs $R_{on}/g_m$) gives the designer the complete picture: the target $R_{on}/g_m$ from Plot 1 maps to a specific ($W$, $I_{sweep}$) combination here, and the corresponding $V_{bias}$ is the deadzone voltage that must be met across all process corners for the IBA final stage to enter small-signal mode.
 
+![](assets/fig_055_0.jpg)
 
-![]({p})
+![](assets/fig_056_0.jpg)
 
+![](assets/fig_057_0.jpg)
 
-
-![]({p})
-
-
-
-![]({p})
-
-
-
-![]({p})
-
-
+![](assets/fig_058_0.jpg)
 
 ## 4.3 Log($I_{peak}$) vs Log($\frac{R_{on}}{g_m}$)
 ---
@@ -1084,18 +1030,11 @@ This means $L$ is the dominant geometry knob for the non-linear, but the replica
 
 ---
 
+![](assets/fig_060_0.jpg)
 
-![]({p})
+![](assets/fig_061_0.jpg)
 
-
-
-![]({p})
-
-
-
-![]({p})
-
-
+![](assets/fig_062_0.jpg)
 
 ## 4.4 $g_{m,\text{bias}}$ vs Log($R_{on}/g_m$)
 ---
@@ -1136,22 +1075,13 @@ The same $-1/3$ exponent holds whether $W$ or $L$ is varied any $(W, L)$ pair ma
 
 Because $g_{m,\text{bias}}$ is uniquely determined by $R_{on}/g_m$ and $I_D$ alone, the required $I_{sweep}$ can be read directly from this plot once $\tau_{ss}$ is specified. Width is then chosen independently to meet the $R_{on}/g_m$ target (non-linear phase speed), completing the two-axis co-design that $g_m/I_D$ alone cannot decouple.
 
+![](assets/fig_064_0.jpg)
 
-![]({p})
+![](assets/fig_065_0.jpg)
 
+![](assets/fig_066_0.jpg)
 
-
-![]({p})
-
-
-
-![]({p})
-
-
-
-![]({p})
-
-
+![](assets/fig_067_0.jpg)
 
 ## 4.5 $g_m/I_D$ vs Log($\frac{R_{on}}{g_m}$)
 ---
@@ -1188,22 +1118,13 @@ Entering from $R_{on}/g_m$ subsumes the $g_m/I_D$ design entirely: once $R_{on}/
 
 A designer entering from $g_m/I_D$ can size the device for bandwidth, but has no pre-simulation visibility into Non-Linear settling information ($R_{on}$), the deadzone bias voltages, or worst-case corner behaviour all of which require additional SPICE runs to discover. Entering from $R_{on}/g_m$ subsumes this entirely: once $R_{on}/g_m$ and $I_{sweep}$ are fixed, $g_m/I_D$ is directly readable from this plot and both settling phases are co-designed in a single step. The $g_m/I_D$ axis is a projection of the $R_{on}/g_m$ design space onto a single dimension, every $g_m/I_D$ point maps to a unique $R_{on}/g_m$ point, but the reverse does not exist without simulation.
 
+![](assets/fig_069_0.jpg)
 
-![]({p})
+![](assets/fig_070_0.jpg)
 
+![](assets/fig_071_0.jpg)
 
-
-![]({p})
-
-
-
-![]({p})
-
-
-
-![]({p})
-
-
+![](assets/fig_072_0.jpg)
 
 ## 4.6 $V_{swing}$ vs Log($\frac{R_{on}}{g_m}$)
 ---
@@ -1268,7 +1189,6 @@ This plot therefore answers: **for a given $R_{on}/g_m$ target, what input swing
 $V_{swing}$ is not a free parameter; it is set by the application's input signal amplitude and the bias point simultaneously. This plot makes visible a constraint that the $g_m/I_D$ methodology cannot surface: **there is a minimum required input swing to operate at any given $R_{on}/g_m$ target**. A designer who picks a small $R_{on}/g_m$ for fast settling must verify that the circuit actually sees the corresponding $V_{swing}$; otherwise the assumed operating point is never reached and the settling speed budget is violated. Reading Plot 4.6 alongside Plot 4.1 ($V_{bias}$ vs $R_{on}/g_m$) and Plot 4.3 ($I_{peak}$ vs $R_{on}/g_m$) gives the complete pre-simulation picture of the non-linear settling phase.
 
 
-
 ---
 
 An enhanced and more interactive version of this plotting tool has been developed by the authors and is available online. **Reviewers are strongly encouraged to explore this tool**, as it provides a more intuitive interface for analysis. Users can create custom expressions, modify plots, and interact with the visualizations in a highly flexible manner, offering insights beyond the figures presented in this notebook.  
@@ -1278,7 +1198,6 @@ An enhanced and more interactive version of this plotting tool has been develope
 **Website:** <a href="https://wrongm.team-seakers.com/" target="_blank"><b>wrongm.team-seakers.com</b></a>
 
 </div>
-
 
 
 
@@ -1327,7 +1246,6 @@ Let's compare the performance of an inverter-based amplifier (IBA), which is inh
 **Large-signal condition:** Input kick at virtual ground $\Delta V_x = \pm 133$ mV $> V_{ov,lv\_nmos} \approx 100$ mV, guaranteeing the amplifier enters the slewing (large-signal) regime on every cycle before transitioning to exponential small-signal settling. This is the regime of interest for the $R_{on}/G_m$ methodology.
 
 ---
-
 
 
 ### Design of IBA using Traditional ($g_m/I_D$) Methodology
@@ -1385,7 +1303,6 @@ Let's compare the performance of an inverter-based amplifier (IBA), which is inh
 > The helper returns the best-match **L**, **$I_D/W$**, and **$f_T$**.  
 > Unit cell width follows: $W_{unit} = I_q / (I_D/W)\big|_{\text{LUT}}$, then scale signal path by $m = 4$.
 
-
 ## **$G_m/I_d$ Section (Cells Below)**
 ---
 
@@ -1404,7 +1321,6 @@ Here is the sequence and what each part contributes:
 | **Widget + display** | `ipywidgets` sliders + callbacks | The interactive interface; every slider change reruns `render_dashboard()` live |
 
 ---
-
 
 
 ---
@@ -1426,26 +1342,19 @@ Each plot below captures a fundamental design trade-off used to bias the IBA cor
 > LUTs from Section 3 instead, which additionally capture $R_{on}$, deadzone bias ranges,
 > and process-corner sensitivity.
 
+![](assets/fig_081_0.jpg)
 
-<table>
-<tr>
-<td width="50%"><img src="assets/fig_081_0.png" width="100%"/></td>
-<td width="50%"><img src="assets/fig_081_1.png" width="100%"/></td>
-</tr>
-<tr>
-<td width="50%"><img src="assets/fig_081_2.png" width="100%"/></td>
-<td width="50%"><img src="assets/fig_081_3.png" width="100%"/></td>
-</tr>
-<tr>
-<td width="50%"><img src="assets/fig_081_4.png" width="100%"/></td>
-<td width="50%"><img src="assets/fig_081_5.png" width="100%"/></td>
-</tr>
-<tr>
-<td width="50%"><img src="assets/fig_081_6.png" width="100%"/></td>
-</tr>
-</table>
+![](assets/fig_081_1.jpg)
 
+![](assets/fig_081_2.jpg)
 
+![](assets/fig_081_3.jpg)
+
+![](assets/fig_081_4.jpg)
+
+![](assets/fig_081_5.jpg)
+
+![](assets/fig_081_6.jpg)
 
 ---
 ## 5.2 $G_m/I_D$ Design Helper
@@ -1465,7 +1374,6 @@ from which transistor width follows directly:
 
 $$W = \frac{I_D}{(I_D/W)\big|_{\text{LUT}}}$$
 
-
 ### **About the Gm/Id Design Helper Dataset**
 
 The helper runs on **real IHP SG13G2 SPICE characterisation data** loaded by `get_data()` above.
@@ -1475,7 +1383,6 @@ pre-simulated `.txt` LUT files, the same files used for the gm/id vs Vov charact
 The two device types available are `LV_NMOS`, `LV_PMOS`.
 Each device is characterised across 13 channel lengths (0.13 µm – 3 µm for LV; 0.5 µm – 3 µm for HV),
 with a Vgs sweep at fixed W = 2 µm.
-
 
 ### `solve_optimization()` (The Optimizer)
 
@@ -1489,7 +1396,6 @@ $$\mathcal{L} = w_1 \left(\frac{g_m/I_D - \hat{x}_A}{\sigma_A}\right)^2 + w_2 \l
 
 **Returns:** the top-5 LUT rows sorted by $\mathcal{L}$, the best row, a simulated 6-step convergence trace for display, and $\sigma_A$, $\sigma_B$ (passed to `render_dashboard()` for the loss surface plot).
 
-
 ### `render_dashboard()` (Visualisation Engine)
 
 The cell below defines `render_dashboard()`, the function that runs every time a slider changes.
@@ -1502,7 +1408,6 @@ It does three things:
    - *Right - Loss surface*: plots the objective function $\mathcal{L}$ vs gm/id (gm/gds held at the optimum). The narrow minimum (green dot) is where the solver landed. A steep, deep minimum means the design point is well-determined; a flat curve means any value in that range is acceptable.
 
 3. **Prints results** - the convergence trace (6 iterative loss values), the optimised metrics (best L, $f_T$, $I_D/W$, device), and the Top-5 colour-coded table (green = best match, red = worst of the five).
-
 
 
 ### How to Use the Gm/Id Design Helper
@@ -1530,18 +1435,7 @@ This interactive dashboard helps you find the optimal transistor size based on *
 The highlighted green lines show the most important results: the **best matching channel length**, **ft (transition frequency)**, **id/W (current density in µA/µm)**, and **device type**. Use these values to size your transistors.
 
 
-
-<table>
-<tr>
-<td width="50%"><img src="assets/widget_091_0_0.png" width="100%"/></td>
-<td width="50%"><img src="assets/widget_091_3_0.png" width="100%"/></td>
-</tr>
-<tr>
-<td width="50%"><img src="assets/widget_091_3_1.png" width="100%"/></td>
-</tr>
-</table>
-
-
+![](assets/widget_091.jpg)
 
 ### Gm/Id Helper Output → Transistor Sizing
 
@@ -1595,7 +1489,6 @@ Schematic of the testbench for IBA in capacitive feedback in Xschem:
 ---
 
 
-
 ## 5.3 Results from the IBA designed using **$g_m/I_D$** design methodology
 
 The four figures below are generated from `INV_OTA_gmid.txt`, a transient simulation of the IBA (Inverter-Based Amplifier) sized using the $g_m/I_D$ methodology.
@@ -1615,14 +1508,9 @@ The four figures below are generated from `INV_OTA_gmid.txt`, a transient simula
 > $R_{on}$, the deadzone bias ranges, or the SS-corner worst case
 > all of which are characterised pre-simulation in the $R_{on}/g_m$ section that follows.
 
+![](assets/fig_098_0.jpg)
 
-![]({p})
-
-
-
-![]({p})
-
-
+![](assets/fig_099_1.jpg)
 
 It is observed that the error envelope exhibits **two distinct settling regimes**: an initial rapid decay with a **steep negative slope (500–550 ns)** attributable to **large-signal nonlinear operation**, followed by a gradual exponential decay with a **comparatively smaller slope**, characteristic of **small-signal linear settling**. It is worth noting that the boundary between
 these two regimes, and consequently the proportion of the settling window occupied by the nonlinear phase, **cannot be determined beforehand from conventional design methodologies including both the $g_m/I_D$ method and the approach presented by Conrad et al [4].** This information becomes available only upon post-simulation analysis. This constitutes a
@@ -1630,17 +1518,11 @@ these two regimes, and consequently the proportion of the settling window occupi
 small-signal settling contributions **cannot be independently budgeted or optimized** at the
 transistor sizing stage.
 
-
-![]({p})
-
-
+![](assets/fig_101_0.jpg)
 
 It is observed that the output charging current $I_{out}$ exhibits **two distinct regimes**: an initial **large nonlinear peak current** measured at **+12 µA** on the positive edge and **−10 µA** on the negative edge that rapidly charges/discharges the output load capacitance toward the final value, followed by a progressively decreasing small-signal current with $I_{out} \rightarrow 0$ as the output converges. This behavior is characteristic of dynamic amplifiers: **the bulk of the charge transfer occurs in the initial nonlinear phase**, with the small-signal tail contributing only the final fine settling. Critically, **neither the magnitude of the peak nonlinear current nor the asymmetry between positive and negative edges can be determined beforehand from the $g_m/I_D$ methodology or the approach of Conrad et al. [4]**. Furthermore, this **peak current varies across process corners**, introducing additional uncertainty in the settling budget that remains entirely uncharacterized until post-simulation analysis. This represents a compounded limitation of conventional methodologies: not only is the nonlinear settling duration unknown at the sizing stage, but so is the **magnitude, polarity asymmetry, and corner dependence** of the dominant charging current.
 
-
-![]({p})
-
-
+![](assets/fig_103_0.jpg)
 
 ---
 
@@ -1661,7 +1543,6 @@ The **$R_{on}/g_m$ methodology** below resolves all three simultaneously,
 pre-simulation, using the LUT plots generated in the characterisation section.
 
 ---
-
 
 
 # 6. Design of Inverter-Based Amplifier using the $R_{on}/g_m$ Methodology
@@ -1765,7 +1646,6 @@ To design an inverter-based amplifier targeting a **$T_{settle} = 250\,\text{ns}
   ---
 
 
-
 ## 6.1 $R_{on}/G_m$ Design Helper
 ---
 
@@ -1801,7 +1681,6 @@ incompatible numerical scales and cannot be combined without it.
 The best match returns $V_{\text{bias}}$, device width $W$, and channel length $L$ fully specifying the transistor operating point pre-simulation.
 
 
-
 ## **How to Use the Ron/gm Design helper**
 
 ---
@@ -1833,26 +1712,7 @@ After the user input, the printed output shows `width`, `length`, and `v(Vbias)`
 
 
 
-
-<table>
-<tr>
-<td width="50%"><img src="assets/widget_115_0_0.png" width="100%"/></td>
-<td width="50%"><img src="assets/widget_115_3_0.png" width="100%"/></td>
-</tr>
-<tr>
-<td width="50%"><img src="assets/widget_115_3_1.png" width="100%"/></td>
-<td width="50%"><img src="assets/widget_115_3_2.png" width="100%"/></td>
-</tr>
-<tr>
-<td width="50%"><img src="assets/widget_115_4_0.png" width="100%"/></td>
-<td width="50%"><img src="assets/widget_115_5_0.png" width="100%"/></td>
-</tr>
-<tr>
-<td width="50%"><img src="assets/widget_115_5_1.png" width="100%"/></td>
-</tr>
-</table>
-
-
+![](assets/widget_115.jpg)
 
 ## Ron/Gm Helper Output → Transistor Sizing
 ---
@@ -1919,7 +1779,6 @@ Post-simulation: ≈ 12 µA (≈15% deviation)
 ---
 
 
-
 # 6.2 Inverter Based Amplifier design Results: $R_{on}/g_m$ Methodology
 
 ## Schematic
@@ -1931,21 +1790,15 @@ Schematic of the inverter-based amplifier with capacitive feedback, designed usi
 </p>
 
 
-
 ## 6.3 Results from the IBA designed using **$R_{on}/g_m$** design methodology
 
 The four figures below are generated from `INV_OTA_rongm.txt`, a transient simulation of the IBA sized using the $R_{on}/g_m$ methodology.
 
 (LV_NMOS: $W = 0.5\,\mu\text{m}$, $L = 3.0\,\mu\text{m}$, $m = 4$; LV_PMOS: $W = 0.15\,\mu\text{m}$, $L = 0.2\,\mu\text{m}$, $m = 4$; $I_{q,replica} = 0.5\,\mu\text{A}$, $I_{q,signal} = 2.0\,\mu\text{A}$)
 
+![](assets/fig_120_0.jpg)
 
-![]({p})
-
-
-
-![]({p})
-
-
+![](assets/fig_121_1.jpg)
 
 It is observed that the error envelope exhibits **two distinct settling regimes**: an initial rapid decay with a **steep negative slope (500–550 ns)** attributable to **large-signal nonlinear operation**, followed by a gradual exponential decay with a **comparatively smaller slope**, characteristic of **small-signal linear settling**. It is worth noting that the boundary between
 these two regimes, and consequently the proportion of the settling window occupied by the nonlinear phase, **determined beforehand from $R_{on}$/$g_m$ design methodology.** This information was ready with users before simulation analysis. This constitutes a
@@ -1953,18 +1806,12 @@ these two regimes, and consequently the proportion of the settling window occupi
 small-signal settling contributions **can be independently budgeted or optimized** at the
 transistor sizing stage.
 
-
-![]({p})
-
-
+![](assets/fig_123_0.jpg)
 
 It is observed that the output charging current $I_{out}$ exhibits **two distinct regimes**: an initial **large nonlinear peak current** measured at **+14 µA**(positive edge) on the positive edge and **−13.86 µA**(negative edge) on the negative edge that rapidly charges/discharges the output load capacitance toward the final value, followed by a progressively decreasing small-signal current with $I_{out} \rightarrow 0$ as the output converges. This behavior is characteristic of dynamic amplifiers: **the bulk of the charge transfer occurs in the initial nonlinear phase**, with the small-signal tail contributing only the final fine settling. This was **determined beforehand by the $R_{on}/g_m$ methodology where $g_m/I_d$ or the approach of Conrad et al [4] failed to do so.**. Furthermore, this **peak current varies across process corners**, introducing additional uncertainty in the settling budget is now predictable pre-simulation. This represents a great improvement over conventional methodologies: not only is the nonlinear settling duration known at the sizing stage, but so is the **magnitude, polarity asymmetry, and corner dependence** of the dominant charging current.
 
 
-
-![]({p})
-
-
+![](assets/fig_125_0.jpg)
 
 <hr>
 
@@ -1973,7 +1820,6 @@ It is observed that the output charging current $I_{out}$ exhibits **two distinc
 A structured comparison of the $R_{on}/g_m$ methodology against the $g_m/I_D$ methodology and the Conrad *et al.* [TCAS-I 2020] numerical optimizer is presented below. The table covers methodology paradigm, settling phase coverage, process corner robustness, design equations, practical flow, and concrete design example results across all three approaches.
 
 ---
-
 
 
 ## PERFORMANCE SUMMARY AND COMPARISON WITH STATE-OF-THE-ART
@@ -2198,7 +2044,6 @@ Pre-simulation $V_{bias}$ predictions were within <b>&plusmn;75 mV</b> of post-s
 ---
 
 
-
 ### Key Observation
 ---
 
@@ -2217,7 +2062,6 @@ This distinction becomes especially significant for dynamic amplifier design, wh
 
 ---
 > An interactive version of all design plots is available at **<a href="https://wrongm.team-seakers.com/" target="_blank" rel="noopener noreferrer">wrongm.team-seakers.com</a>**.
-
 
 
 ---
