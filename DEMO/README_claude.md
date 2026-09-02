@@ -1,4 +1,3 @@
-
 <a href="https://colab.research.google.com/drive/1q6r7tg8RoyLBaMS3b7EONwkPCBzEM2c1?usp=sharing" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 ---
@@ -150,7 +149,7 @@ https://colab.research.google.com/drive/1q6r7tg8RoyLBaMS3b7EONwkPCBzEM2c1?usp=sh
 2. Dynamic Amplifier
    - 2.1 Understanding Dynamic Amplifiers
    - 2.2 Error Behavior of Dynamic Amplifiers
-   - 2.3 Ron/gm Based Design Methodology
+   - 2.3 R<sub>on</sub>/g<sub>m</sub> Based Design Methodology
 3. Simulation Environment Setup
    - 3.1 Automated SPICE Netlist Generation
    - 3.2 Step 1 - Build Ngspice 45.2
@@ -159,22 +158,22 @@ https://colab.research.google.com/drive/1q6r7tg8RoyLBaMS3b7EONwkPCBzEM2c1?usp=sh
    - 3.5 Step 4 - Write .spiceinit
    - 3.6 Step 5 - Simulation Configuration
    - 3.7 Step 6 - Run All 15 Simulations
-4. Design Plots for the Ron/gm Methodology
-   - 4.1 $V_{bias}$ vs log($R_{on}$/$g_m$)
-   - 4.2 $V_{bias}$ vs Width
-   - 4.3 log($I_{peak}$) vs log($R_{on}$/$g_m$)
-   - 4.4 $g_{m,bias}$ vs log($R_{on}$/$g_m$)
-   - 4.5 $g_m$/$I_d$ vs log($R_{on}$/$g_m$)
-   - 4.6 $V_{swing}$ vs log($R_{on}$/$g_m$)
+4. Design Plots for the R<sub>on</sub>/g<sub>m</sub> Methodology
+   - 4.1 V<sub>bias</sub> vs log(R<sub>on</sub>/g<sub>m</sub>)
+   - 4.2 V<sub>bias</sub> vs Width
+   - 4.3 log(I<sub>peak</sub>) vs log(R<sub>on</sub>/g<sub>m</sub>)
+   - 4.4 g<sub>m,bias</sub> vs log(R<sub>on</sub>/g<sub>m</sub>)
+   - 4.5 g<sub>m</sub>/I<sub>D</sub> vs log(R<sub>on</sub>/g<sub>m</sub>)
+   - 4.6 V<sub>swing</sub> vs log(R<sub>on</sub>/g<sub>m</sub>)
 5. IBA Design: gm/ID Methodology
    - 5.1 Gm/ID Characterisation
    - 5.2 Gm/ID Design Helper
    - 5.3 Results from the IBA designed using gm/ID
-   - 5.4 Summary and Motivation for Ron/gm
+   - 5.4 Summary and Motivation for R<sub>on</sub>/g<sub>m</sub>
 6. IBA Design: Ron/gm Methodology
-   - 6.1 Ron/gm Design Helper
-   - 6.2 Inverter Based Amplifier designed using Ron/gm based methodology
-   - 6.3 Results from the IBA designed using Ron/gm
+   - 6.1 R<sub>on</sub>/g<sub>m</sub> Design Helper
+   - 6.2 Inverter Based Amplifier designed using R<sub>on</sub>/g<sub>m</sub> methodology
+   - 6.3 Results from the IBA designed using R<sub>on</sub>/g<sub>m</sub>
 7. Comparative Analysis
 8. References
 
@@ -2108,4 +2107,3 @@ This distinction becomes especially significant for dynamic amplifier design, wh
  [8] Y. Chae and G. Han, "Low Voltage, Low Power, Inverter-Based Switched-Capacitor Delta-Sigma Modulator," in IEEE Journal of Solid-State Circuits, vol. 44, no. 2, pp. 458-472, Feb. 2009, doi: [10.1109/JSSC.2008.2010973](https://ieeexplore.ieee.org/document/4768910).
 
  ---
-
