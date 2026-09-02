@@ -668,8 +668,6 @@ XMN_GM_B net1 Vbias GND GND sg13_lv_nmos w={wx} l={lx} ng=1 m=1
 ### `.control` Block - Visual Flow Diagram
 ---
 
-The table above describes each command; this diagram shows how they connect sequentially:
-
 <table align="center">
   <tr>
     <td align="center">
@@ -681,6 +679,8 @@ The table above describes each command; this diagram shows how they connect sequ
     </td>
   </tr>
 </table>
+
+The table above describes each command; this diagram shows how they connect sequentially:
 
 > **Each (L, corner) combination produces one CSV file** 15 files total (5 lengths × 3 corners).  
 > Each file contains 13 W × 6 VDS × 24 (Ibias × VG) = **1872 data rows**.
