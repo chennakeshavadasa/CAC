@@ -864,14 +864,6 @@ Each of the 6 cells below calls `plot_data()`, which:
 - Work left-to-right through the plots: start at Plot 1 to pick $R_{on}/g_m$, then use Plots 2–6 to confirm width, current, and swing requirements
 
 
-![](assets/fig_046_0.jpg)
-
-![](assets/fig_047_0.jpg)
-
-![](assets/fig_048_0.jpg)
-
-![](assets/fig_049_0.jpg)
-
 ## 4.1 $V_{bias}$ vs log($\frac{R_{on}}{g_m}$)
 ---
 
@@ -910,6 +902,16 @@ dependencies are immediately readable:
 
 ---
 
+![](assets/fig_046_0.jpg)
+
+![](assets/fig_047_0.jpg)
+
+![](assets/fig_048_0.jpg)
+
+![](assets/fig_049_0.jpg)
+
+---
+
 ### Trends
 
 > **Reading the plot:**
@@ -930,12 +932,6 @@ Width and current are coupled through $g_m$: increasing $W$ lowers $V_{bias}$ (t
 
 ---
 
-![](assets/fig_051_0.jpg)
-
-![](assets/fig_052_0.jpg)
-
-![](assets/fig_053_0.jpg)
-
 ## 4.2 $V_{bias}$ vs $Width$
 ---
 
@@ -951,6 +947,13 @@ This $1/\sqrt{W}$ decay is the dominant feature of the plot, the rapid drop at s
 - **Larger $W$** → $V_{bias}$ decreases: a wider device carries the same current at a lower $V_{GS}$, reducing the required bias voltage
 - **Corner spread** → SS corner (higher $V_{TH}$) sits above TT and FF at the same width and current, directly showing which corner demands the highest $V_{bias}$ to enter the small-signal settling region
 - **Multiple $V_{DS}$ values overlaid** → the spread between $V_{DS}$ traces is small, confirming that $V_{bias}$ is primarily set by the diode-connected replica (which operates at $V_{DS} = V_{GS}$) and is relatively insensitive to the drain voltage of the main-path device
+---
+
+![](assets/fig_051_0.jpg)
+
+![](assets/fig_052_0.jpg)
+
+![](assets/fig_053_0.jpg)
 
 ---
 
@@ -970,13 +973,7 @@ For a **given $W$ and bias current, what $V_{bias}$ must be applied to the gate 
 
 Width and current are coupled through $g_m$: increasing $W$ lowers $V_{bias}$ but also lowers $R_{on}$, which affects the non-linear RC settling speed (Plot 3). Reading Plot 2 together with Plot 1 ($V_{bias}$ vs $R_{on}/g_m$) gives the designer the complete picture: the target $R_{on}/g_m$ from Plot 1 maps to a specific ($W$, $I_{sweep}$) combination here, and the corresponding $V_{bias}$ is the deadzone voltage that must be met across all process corners for the IBA final stage to enter small-signal mode.
 
-![](assets/fig_055_0.jpg)
-
-![](assets/fig_056_0.jpg)
-
-![](assets/fig_057_0.jpg)
-
-![](assets/fig_058_0.jpg)
+---
 
 ## 4.3 Log($I_{peak}$) vs Log($\frac{R_{on}}{g_m}$)
 ---
@@ -993,6 +990,16 @@ On a log-log scale this gives:
 $$\log(I_{peak}) = -\log\!\left(\frac{R_{on}}{g_m}\right) + \text{const}$$
 
 which is approximately a **straight line with slope $-1$** seen in the plot. The spread between TT/SS/FF traces at each bias current reflects the process-corner sensitivity of $I_{peak}$ - the FF corner (green) consistently delivers higher $I_{peak}$ than SS (red) at the same $R_{on}/g_m$, since a faster process has lower $R_{on}$ and higher carrier mobility, both of which increase the initial charging current. This corner spread grows at larger $R_{on}/g_m$ values (longer $L$ or lower $I_D$), making worst-case SS-corner $I_{peak}$ the binding constraint when sizing for non-linear settling speed.
+
+---
+
+![](assets/fig_055_0.jpg)
+
+![](assets/fig_056_0.jpg)
+
+![](assets/fig_057_0.jpg)
+
+![](assets/fig_058_0.jpg)
 
 ---
 ### Trends
@@ -1030,12 +1037,6 @@ This means $L$ is the dominant geometry knob for the non-linear, but the replica
 
 ---
 
-![](assets/fig_060_0.jpg)
-
-![](assets/fig_061_0.jpg)
-
-![](assets/fig_062_0.jpg)
-
 ## 4.4 $g_{m,\text{bias}}$ vs Log($R_{on}/g_m$)
 ---
 
@@ -1054,6 +1055,13 @@ This is a power law with exponent $-1/3$: on a log-log axis (Plot 4.4b) it appea
 - **Higher $I_{sweep}$** → curve shifts upward: more bias current raises $g_{m,\text{bias}} = 2I_D/V_{ov}$ at every $R_{on}/g_m$ value ($g_{m,\text{bias}} \propto \sqrt{I_D}$, so doubling $I_{sweep}$ lifts the curve by $\sqrt{2}$)
 - **Left → Right** along a fixed-$I_{sweep}$ trace: $L$ increases ($R_{on}/g_m \propto L^{3/2}$ pushes the operating point rightward while $g_{m,\text{bias}} \propto L^{-1/2}$ pulls it downward)
 - **Corner spread** → process corners shift $\mu C_{ox}$ and $V_{TH}$, vertically separating the constant-$I_D$ curves; the SS corner sits highest at any given $(W, L, I_D)$
+---
+
+![](assets/fig_060_0.jpg)
+
+![](assets/fig_061_0.jpg)
+
+![](assets/fig_062_0.jpg)
 
 ---
 
@@ -1075,13 +1083,7 @@ The same $-1/3$ exponent holds whether $W$ or $L$ is varied any $(W, L)$ pair ma
 
 Because $g_{m,\text{bias}}$ is uniquely determined by $R_{on}/g_m$ and $I_D$ alone, the required $I_{sweep}$ can be read directly from this plot once $\tau_{ss}$ is specified. Width is then chosen independently to meet the $R_{on}/g_m$ target (non-linear phase speed), completing the two-axis co-design that $g_m/I_D$ alone cannot decouple.
 
-![](assets/fig_064_0.jpg)
-
-![](assets/fig_065_0.jpg)
-
-![](assets/fig_066_0.jpg)
-
-![](assets/fig_067_0.jpg)
+---
 
 ## 4.5 $g_m/I_D$ vs Log($\frac{R_{on}}{g_m}$)
 ---
@@ -1114,17 +1116,21 @@ Entering from $R_{on}/g_m$ subsumes the $g_m/I_D$ design entirely: once $R_{on}/
 
 ---
 
+![](assets/fig_064_0.jpg)
+
+![](assets/fig_065_0.jpg)
+
+![](assets/fig_066_0.jpg)
+
+![](assets/fig_067_0.jpg)
+
+---
+
 ### Key Insight
 
 A designer entering from $g_m/I_D$ can size the device for bandwidth, but has no pre-simulation visibility into Non-Linear settling information ($R_{on}$), the deadzone bias voltages, or worst-case corner behaviour all of which require additional SPICE runs to discover. Entering from $R_{on}/g_m$ subsumes this entirely: once $R_{on}/g_m$ and $I_{sweep}$ are fixed, $g_m/I_D$ is directly readable from this plot and both settling phases are co-designed in a single step. The $g_m/I_D$ axis is a projection of the $R_{on}/g_m$ design space onto a single dimension, every $g_m/I_D$ point maps to a unique $R_{on}/g_m$ point, but the reverse does not exist without simulation.
 
-![](assets/fig_069_0.jpg)
-
-![](assets/fig_070_0.jpg)
-
-![](assets/fig_071_0.jpg)
-
-![](assets/fig_072_0.jpg)
+---
 
 ## 4.6 $V_{swing}$ vs Log($\frac{R_{on}}{g_m}$)
 ---
@@ -1156,6 +1162,16 @@ Consider a designer who targets a small $R_{on}/g_m$ expecting fast non-linear s
 Conversely, at large $R_{on}/g_m$ (right side of the plot), $V_{swing}$ is small, the gate barely rises above $v(Vbias)$, the transistor stays near the edge of the linear region, and the non-linear RC phase contributes little to nothing in the overall settling. The small-signal phase dominates.
 
 This plot therefore answers: **for a given $R_{on}/g_m$ target, what input swing must the circuit actually see to operate at that point?**
+
+---
+
+![](assets/fig_069_0.jpg)
+
+![](assets/fig_070_0.jpg)
+
+![](assets/fig_071_0.jpg)
+
+![](assets/fig_072_0.jpg)
 
 ---
 
