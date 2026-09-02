@@ -1456,10 +1456,13 @@ This interactive dashboard helps you find the optimal transistor size based on *
 **Key Output - OPTIMIZED METRICS:**  
 The highlighted green lines show the most important results: the **best matching channel length**, **ft (transition frequency)**, **id/W (current density in µA/µm)**, and **device type**. Use these values to size your transistors.
 
+### Gm/Id Helper Output → Transistor Sizing
+
+---
 
 ![](assets/widget_091.jpg)
 
-### Gm/Id Helper Output → Transistor Sizing
+---
 
 The helper returned the following best-match operating points:
 
@@ -1732,11 +1735,10 @@ This tool helps the user to size the dynamic amplifier based on $R_{on}/G_m$ bas
 **Key Output BEST MATCH:**  
 After the user input, the printed output shows `width`, `length`, and `v(Vbias)`. The transistor sizing and bias voltage to use in your design. The **Match Quality %** indicates how closely the LUT point matches your target (100% = exact match).
 
-
-
-![](assets/widget_115.jpg)
+---
 
 ## Ron/Gm Helper Output → Transistor Sizing
+
 ---
 
 We design it for **SS corner** (worst-case $R_{on}$):
@@ -1757,6 +1759,10 @@ We design it for **SS corner** (worst-case $R_{on}$):
   Since $I_D$ and $W$ are scaled by the same factor $k$, the ratio $I_D/W$ is unchanged,
   the inversion level is unchanged, and $V_{GS} = V_{bias}$ is unchanged.
   This is the same invariant that underpins the $g_m/I_D$ methodology.
+
+---
+
+![](assets/widget_115.jpg)
 
 ---
 
