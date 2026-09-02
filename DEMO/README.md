@@ -127,7 +127,14 @@ Then run cells top-to-bottom. An internet connection is required for model files
 Update `data_path` in necessary cells to point to your local CSV directory if not using Colab.
 
 ---
-**Google Colab Link**: <a href="https://colab.research.google.com/drive/1q6r7tg8RoyLBaMS3b7EONwkPCBzEM2c1?usp=sharing" target="_blank" rel="noopener noreferrer">Open in Google Colab</a>
+
+**Google Colab Link**: 
+<a href="https://colab.research.google.com/drive/1q6r7tg8RoyLBaMS3b7EONwkPCBzEM2c1?usp=sharing" target="_blank" rel="noopener noreferrer">
+  Open in Google Colab
+</a>
+<br>
+https://colab.research.google.com/drive/1q6r7tg8RoyLBaMS3b7EONwkPCBzEM2c1?usp=sharing
+
 ---
 
 
