@@ -1,4 +1,3 @@
-
 <a href="https://colab.research.google.com/drive/1q6r7tg8RoyLBaMS3b7EONwkPCBzEM2c1?usp=sharing" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 ---
@@ -150,7 +149,7 @@ https://colab.research.google.com/drive/1q6r7tg8RoyLBaMS3b7EONwkPCBzEM2c1?usp=sh
 2. Dynamic Amplifier
    - 2.1 Understanding Dynamic Amplifiers
    - 2.2 Error Behavior of Dynamic Amplifiers
-   - 2.3 Ron/gm Based Design Methodology
+   - 2.3 R<sub>on</sub>/g<sub>m</sub> Based Design Methodology
 3. Simulation Environment Setup
    - 3.1 Automated SPICE Netlist Generation
    - 3.2 Step 1 - Build Ngspice 45.2
@@ -159,22 +158,22 @@ https://colab.research.google.com/drive/1q6r7tg8RoyLBaMS3b7EONwkPCBzEM2c1?usp=sh
    - 3.5 Step 4 - Write .spiceinit
    - 3.6 Step 5 - Simulation Configuration
    - 3.7 Step 6 - Run All 15 Simulations
-4. Design Plots for the Ron/gm Methodology
-   - 4.1 $V_{bias}$ vs log($R_{on}$/$g_m$)
-   - 4.2 $V_{bias}$ vs Width
-   - 4.3 log($I_{peak}$) vs log($R_{on}$/$g_m$)
-   - 4.4 $g_{m,bias}$ vs log($R_{on}$/$g_m$)
-   - 4.5 $g_m$/$I_d$ vs log($R_{on}$/$g_m$)
-   - 4.6 $V_{swing}$ vs log($R_{on}$/$g_m$)
+4. Design Plots for the R<sub>on</sub>/g<sub>m</sub> Methodology
+   - 4.1 V<sub>bias</sub> vs log(R<sub>on</sub>/g<sub>m</sub>)
+   - 4.2 V<sub>bias</sub> vs Width
+   - 4.3 log(I<sub>peak</sub>) vs log(R<sub>on</sub>/g<sub>m</sub>)
+   - 4.4 g<sub>m,bias</sub> vs log(R<sub>on</sub>/g<sub>m</sub>)
+   - 4.5 g<sub>m</sub>/I<sub>D</sub> vs log(R<sub>on</sub>/g<sub>m</sub>)
+   - 4.6 V<sub>swing</sub> vs log(R<sub>on</sub>/g<sub>m</sub>)
 5. IBA Design: gm/ID Methodology
    - 5.1 Gm/ID Characterisation
    - 5.2 Gm/ID Design Helper
    - 5.3 Results from the IBA designed using gm/ID
-   - 5.4 Summary and Motivation for Ron/gm
+   - 5.4 Summary and Motivation for R<sub>on</sub>/g<sub>m</sub>
 6. IBA Design: Ron/gm Methodology
-   - 6.1 Ron/gm Design Helper
-   - 6.2 Inverter Based Amplifier designed using Ron/gm based methodology
-   - 6.3 Results from the IBA designed using Ron/gm
+   - 6.1 R<sub>on</sub>/g<sub>m</sub> Design Helper
+   - 6.2 Inverter Based Amplifier designed using R<sub>on</sub>/g<sub>m</sub> methodology
+   - 6.3 Results from the IBA designed using R<sub>on</sub>/g<sub>m</sub>
 7. Comparative Analysis
 8. References
 
@@ -293,11 +292,7 @@ Outside the deadzone (during the large-signal phase), both transistors are drive
 
 ![](assets/anim_008_0.gif)
 
-<div align="center">
-
-**Figure 4:** Animation of the Transient Response of the Inverter-Based Amplifier (IBA) with Step Input $V_X$ and deadzone of $V_{DZP}$(0.4V), $V_{DZN}$(0.4V). We observe $V_{out}$ and $I_{out}$ during Linear and Non Linear settling phase of the Dynamic amplifier(Behavioural model).
-
-</div>
+*Figure 4: Animation of the transient response of the Inverter-Based Amplifier (IBA) with step input $V_X$ and deadzone voltages $V_{DZP}$ (0.4 V) and $V_{DZN}$ (0.4 V). $V_{out}$ and $I_{out}$ are shown during the linear and nonlinear settling phases of the dynamic amplifier (behavioral model).*
 
 This two-phase behavior means the output **reaches closer to its final value in the first phase, then settles precisely in the second**, achieving both speed and accuracy that a **pure OTA cannot provide at the same power budget**.
 
@@ -673,19 +668,19 @@ XMN_GM_B net1 Vbias GND GND sg13_lv_nmos w={wx} l={lx} ng=1 m=1
 ### `.control` Block - Visual Flow Diagram
 ---
 
-The table above describes each command; this diagram shows how they connect sequentially:
-
 <table align="center">
   <tr>
     <td align="center">
-      <img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/control_block_annotated_flow_v3.svg" width="500"/>
+      <img src="https://github.com/chennakeshavadasa/CAC/blob/main//DEMO/assets/control_block_annotated_flow_v3.png" width="500"/>
       <br>
       <h4 style="margin:4px 0; font-weight:normal;">
-        <em>Fig. 8 .control block execution flow for the CAC on-resistance sweep</em>
+        <em>Fig. 8: .control block execution flow for the CAC on-resistance sweep</em>
       </h4>
     </td>
   </tr>
 </table>
+
+The table above describes each command; this diagram shows how they connect sequentially:
 
 > **Each (L, corner) combination produces one CSV file** 15 files total (5 lengths × 3 corners).  
 > Each file contains 13 W × 6 VDS × 24 (Ibias × VG) = **1872 data rows**.
@@ -1231,12 +1226,10 @@ An enhanced and more interactive version of this plotting tool has been develope
 Let's compare the performance of an inverter-based amplifier (IBA), which is inherently a dynamic amplifier, designed using traditional $g_m/I_D$ and $R_{on}/g_m$ based methodologies and evaluate which methodology provides more useful design insights into dynamic amplifiers and reduces the design iteration count required to reach the final specification.
 
 <div align="center">
-
-<img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/ckt_images/fig_7_IBA_schematic.png" width="900">
-
-**Figure 9:** Schematic of Inverter-Based Amplifier(IBA) in Capacitive feedback.
-
+  <img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/ckt_images/fig_7_IBA_schematic.png" width="900">
 </div>
+
+*Figure 9: Schematic of the Inverter-Based Amplifier (IBA) in capacitive feedback.*
 
 ---
 
@@ -1504,10 +1497,10 @@ The replica path burns $0.5\,\mu\text{A}$ (single unit cell) while the main sign
 
 Schematic of the testbench for IBA in capacitive feedback in Xschem:
 <div align="center">
-    <img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/ckt_images/fig_8_IBA_with_cap_FB_using_gmid.jpg" width="1100">
-    <br>
-    <strong>Figure 10:</strong> Inverter-based amplifier in capacitive feedback configuration designed using the $g_{m}/I_d$ methodology.
+  <img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/ckt_images/fig_8_IBA_with_cap_FB_using_gmid.jpg" width="1100">
 </div>
+
+*Figure 10: Inverter-based amplifier in capacitive feedback configuration designed using the $g_m/I_D$ methodology.*
 
 <br>
 
@@ -1812,10 +1805,11 @@ Post-simulation: ≈ 12 µA (≈15% deviation)
 ## Schematic
 Schematic of the inverter-based amplifier with capacitive feedback, designed using the $R_{on}/g_m$ methodology:
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/ckt_images/fig_13_IBA_with_cap_FB_using_ron_gm.jpg" alt="INV OTA Design" width="1100"><br>
-  <em><strong>Fig. 15:</strong> Inverter-based amplifier in capacitive feedback configuration designed using the $R_{on}/g_m$ methodology.</em>
-</p>
+<div align="center">
+  <img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/ckt_images/fig_13_IBA_with_cap_FB_using_ron_gm.jpg" alt="INV OTA Design" width="1100">
+</div>
+
+*Fig. 15: Inverter-based amplifier in capacitive feedback configuration designed using the $R_{on}/g_m$ methodology.*
 
 
 ## 6.3 Results from the IBA designed using **$R_{on}/g_m$** design methodology
@@ -1858,8 +1852,8 @@ A structured comparison of the $R_{on}/g_m$ methodology against the $g_m/I_D$ me
 <thead>
 <tr>
   <th style="text-align:left; padding:6px 7px; border-bottom:1px solid #000; font-weight:bold; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;">Design Criterion</th>
-  <th style="text-align:center; padding:6px 7px; border-bottom:1px solid #000; font-weight:bold; background:#f0f0f0; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;">$R_{on}/g_m$ <b>(This Work)</b></th>
-  <th style="text-align:center; padding:6px 7px; border-bottom:1px solid #000; font-weight:bold; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;">$g_m/I_D$ Methodology</th>
+  <th style="text-align:center; padding:6px 7px; border-bottom:1px solid #000; font-weight:bold; background:#f0f0f0; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;"><i>R</i><sub>on</sub>/<i>g</i><sub>m</sub> <b>(This Work)</b></th>
+  <th style="text-align:center; padding:6px 7px; border-bottom:1px solid #000; font-weight:bold; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;"><i>g</i><sub>m</sub>/<i>I</i><sub>D</sub> Methodology</th>
   <th style="text-align:center; padding:6px 7px; border-bottom:1px solid #000; font-weight:bold; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;">Conrad <i>et al.</i> [TCAS-I 2020]</th>
 </tr>
 </thead>
@@ -1877,9 +1871,9 @@ A structured comparison of the $R_{on}/g_m$ methodology against the $g_m/I_D$ me
 
 <tr>
   <td style="text-align:left; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;">Primary design parameter</td>
-  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0; background:#fafafa;">$R_{on}/g_m$<br><small><i>Couples large-signal + small-signal</i></small></td>
-  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;">$g_m/I_D$<br><small><i>Small-signal only</i></small></td>
-  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;">$m_{a1},\, m_{a2},\, m_{a3},\, I_{bias},\, R,\, C_{az}$<br><small><i>6 numerical params; no physical link</i></small></td>
+  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0; background:#fafafa;"><i>R</i><sub>on</sub>/<i>g</i><sub>m</sub><br><small><i>Couples large-signal + small-signal</i></small></td>
+  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;"><i>g</i><sub>m</sub>/<i>I</i><sub>D</sub><br><small><i>Small-signal only</i></small></td>
+  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;"><i>m</i><sub>a1</sub>, <i>m</i><sub>a2</sub>, <i>m</i><sub>a3</sub>, <i>I</i><sub>bias</sub>, <i>R</i>, <i>C</i><sub>az</sub><br><small><i>6 numerical params; no physical link</i></small></td>
 </tr>
 
 <tr>
@@ -1894,28 +1888,28 @@ A structured comparison of the $R_{on}/g_m$ methodology against the $g_m/I_D$ me
 
 <tr>
   <td style="text-align:left; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;">Non-linear (large-signal / RC) settling characterized</td>
-  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0; background:#fafafa;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22" height="22"/><br><small><i>Via $R_{on}$ in LUT; $\tau_{ls} = R_{on}C_L$</i></small></td>
+  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0; background:#fafafa;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22" height="22"/><br><small><i>Via R<sub>on</sub> in LUT; τ<sub>ls</sub> = R<sub>on</sub>C<sub>L</sub></i></small></td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/sad.svg" width="22" height="22"/><br><small><i>$R_{on}$ absent from $g_m/I_D$ framework</i></small></td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/sad.svg" width="22" height="22"/><br><small><i>Acknowledged as "not practical" [4]†</i></small></td>
 </tr>
 
 <tr>
-  <td style="text-align:left; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;">Small-signal ($g_m C$) settling characterized</td>
-  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0; background:#fafafa;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22" height="22"/><br><small><i>Via $g_{m,bias}$ in LUT; $BW = g_m/(2\pi C_L)$</i></small></td>
+  <td style="text-align:left; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;">Small-signal (<i>g</i><sub>m</sub>C) settling characterized</td>
+  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0; background:#fafafa;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22" height="22"/><br><small><i>Via g<sub>m,bias</sub> in LUT; BW = g<sub>m</sub>/(2π C<sub>L</sub>)</i></small></td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22" height="22"/><br><small><i>Primary strength of $g_m/I_D$ methodology</i></small></td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22" height="22"/><br><small><i>Via rms error cost function</i></small></td>
 </tr>
 
 <tr>
   <td style="text-align:left; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;">Unified two-phase settling model</td>
-  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0; background:#fafafa;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22" height="22"/><br><small><i>$R_{on}/g_m$ co-constrains both $\tau_{LS}$ and $\tau_{SS}$</i></small></td>
+  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0; background:#fafafa;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22" height="22"/><br><small><i>R<sub>on</sub>/g<sub>m</sub> co-constrains both τ<sub>LS</sub> and τ<sub>SS</sub></i></small></td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/sad.svg" width="22" height="22"/><br><small><i>Small-signal-phase only</i></small></td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/sad.svg" width="22" height="22"/><br><small><i>No time-budget allocation between phases</i></small></td>
 </tr>
 
 <tr>
-  <td style="text-align:left; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;">Peak slew current $I_{peak}$ predicted pre-simulation</td>
-  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0; background:#fafafa;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22" height="22"/><br><small><i>$I_{peak} \propto 1/(R_{on}/g_m)$; log-log scale slope $= -1$</i></small></td>
+  <td style="text-align:left; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;">Peak slew current <i>I</i><sub>peak</sub> predicted pre-simulation</td>
+  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0; background:#fafafa;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22" height="22"/><br><small><i>I<sub>peak</sub> ∝ 1/(R<sub>on</sub>/g<sub>m</sub>); log-log scale slope = −1</i></small></td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/sad.svg" width="22" height="22"/></td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/sad.svg" width="22" height="22"/><br><small><i>Post-optimization verification only</i></small></td>
 </tr>
@@ -1931,14 +1925,14 @@ A structured comparison of the $R_{on}/g_m$ methodology against the $g_m/I_D$ me
 </tr>
 
 <tr>
-  <td style="text-align:left; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;">Deadzone bias ($V_{DZN}$, $V_{DZP}$) determined pre-simulation</td>
+  <td style="text-align:left; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;">Deadzone bias (<i>V</i><sub>DZN</sub>, <i>V</i><sub>DZP</sub>) determined pre-simulation</td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0; background:#fafafa;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22" height="22"/><br><small><i>Per-corner, from $V_{bias}$ vs $R_{on}/g_m$ plot§</i></small></td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/sad.svg" width="22" height="22"/><br><small><i>Unknown without iterative transient corner sweeps</i></small></td>
-  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/sad.svg" width="22" height="22"/><br><small><i>$V_{os}$ is one of 6 optimized params; corner sensitivity unknown a priori</i></small></td>
+  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/sad.svg" width="22" height="22"/><br><small><i>V<sub>os</sub> is one of 6 optimized params; corner sensitivity unknown a priori</i></small></td>
 </tr>
 
 <tr>
-  <td style="text-align:left; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;">SS-corner $R_{on}$ degradation visible a priori</td>
+  <td style="text-align:left; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;">SS-corner <i>R</i><sub>on</sub> degradation visible a priori</td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0; background:#fafafa;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22" height="22"/></td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/sad.svg" width="22" height="22"/></td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/sad.svg" width="22" height="22"/></td>
@@ -1949,8 +1943,8 @@ A structured comparison of the $R_{on}/g_m$ methodology against the $g_m/I_D$ me
 
 <tr>
   <td style="text-align:left; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;">Closed-form design equations available</td>
-  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0; background:#fafafa;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22" height="22"/><br><small><i>$V_{bias} = V_{TH} + 2I_D/g_m$;<br>$g_{m,bias} \propto (R_{on}/g_m)^{-1/3}$;<br>$R_{on}/g_m \propto L^2/(W I_D)$</i></small></td>
-  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22" height="22"/><br><small><i>For small-signal: $G_m = 2\pi f C_L$;<br>$W = I_D / (I_D/W)|_{LUT}$</i></small></td>
+  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0; background:#fafafa;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22" height="22"/><br><small><i>V<sub>bias</sub> = V<sub>TH</sub> + 2I<sub>D</sub>/g<sub>m</sub>;<br>g<sub>m,bias</sub> ∝ (R<sub>on</sub>/g<sub>m</sub>)<sup>−1/3</sup>;<br>R<sub>on</sub>/g<sub>m</sub> ∝ L²/(W·I<sub>D</sub>)</i></small></td>
+  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22" height="22"/><br><small><i>For small-signal: G<sub>m</sub> = 2πfC<sub>L</sub>;<br>W = I<sub>D</sub> / (I<sub>D</sub>/W)|<sub>LUT</sub></i></small></td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/sad.svg" width="22" height="22"/><br><small><i>Stability criterion exists but "not realizable" as design equation†</i></small></td>
 </tr>
 
@@ -1962,8 +1956,8 @@ A structured comparison of the $R_{on}/g_m$ methodology against the $g_m/I_D$ me
 </tr>
 
 <tr>
-  <td style="text-align:left; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;">Subsumes $g_m/I_D$ methodology</td>
-  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0; background:#fafafa;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22" height="22"/><br><small><i>$g_m/I_D$ readable from $g_m/I_D$ vs $R_{on}/g_m$ plot; reverse not possible</i></small></td>
+  <td style="text-align:left; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;">Subsumes <i>g</i><sub>m</sub>/<i>I</i><sub>D</sub> methodology</td>
+  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0; background:#fafafa;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22" height="22"/><br><small><i>g<sub>m</sub>/I<sub>D</sub> readable from g<sub>m</sub>/I<sub>D</sub> vs R<sub>on</sub>/g<sub>m</sub> plot; reverse not possible</i></small></td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;">—</td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:normal; max-width:0;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/sad.svg" width="22" height="22"/></td>
 </tr>
@@ -2009,42 +2003,42 @@ A structured comparison of the $R_{on}/g_m$ methodology against the $g_m/I_D$ me
 <tr><td colspan="4" style="background:#000; color:#fff; font-weight:bold; font-size:8.5pt; letter-spacing:.06em; padding:3px 8px; max-width:none;">VI. &nbsp;DESIGN EXAMPLE RESULTS (IBA, T<sub>settle</sub> = 250 ns, UGB = 9.55 MHz (60 Mrad/s), C<sub>L,eff</sub> = 667 fF, IHP SG13G2 130 nm)</td></tr>
 
 <tr>
-  <td style="text-align:left; padding:5px 7px; border-bottom:0.5px solid #ddd;">$G_m$ target met (UGB = 9.55 MHz)</td>
-  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; background:#fafafa;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22"/> $\approx 40\,\mu\text{S}$</td>
-  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22"/> $\approx 40\,\mu\text{S}$</td>
+  <td style="text-align:left; padding:5px 7px; border-bottom:0.5px solid #ddd;"><i>G</i><sub>m</sub> target met (UGB = 9.55 MHz)</td>
+  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; background:#fafafa;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22"/> ≈ 40 µS</td>
+  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22"/> ≈ 40 µS</td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22"/> 15-bit ENOB</td>
 </tr>
 
 <tr>
-  <td style="text-align:left; padding:5px 7px; border-bottom:0.5px solid #ddd;">$I_{peak}$ range</td>
-  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; background:#fafafa;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22"/><br><small><i> 14 $\mu$A(positive edge), -13.86 $\mu$A(negative edge)</i></small></td>
+  <td style="text-align:left; padding:5px 7px; border-bottom:0.5px solid #ddd;"><i>I</i><sub>peak</sub> range</td>
+  <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; background:#fafafa;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22"/><br><small><i>14 µA (positive edge), −13.86 µA (negative edge)</i></small></td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/sad.svg" width="22"/></td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/sad.svg" width="22"/></td>
 </tr>
 
 <tr>
-  <td style="text-align:left; padding:5px 7px; border-bottom:0.5px solid #ddd;">$R_{on}$ known before transient simulation</td>
+  <td style="text-align:left; padding:5px 7px; border-bottom:0.5px solid #ddd;"><i>R</i><sub>on</sub> known before transient simulation</td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; background:#fafafa;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22"/><br><small><i>4 kΩ unit; 1 kΩ after ×4 multiplier</i></small></td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/sad.svg" width="22"/><br><small><i>Post-simulation discovery only</i></small></td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/sad.svg" width="22"/></td>
 </tr>
 
 <tr>
-  <td style="text-align:left; padding:5px 7px; border-bottom:0.5px solid #ddd;">$V_{DZN}$ (NMOS deadzone) pre-simulation</td>
+  <td style="text-align:left; padding:5px 7px; border-bottom:0.5px solid #ddd;"><i>V</i><sub>DZN</sub> (NMOS deadzone) pre-simulation</td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; background:#fafafa;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22"/><br><small><i>FF: 0.355 V | TT: 0.390 V | SS: 0.425 V</i></small></td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/sad.svg" width="22"/></td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/sad.svg" width="22"/></td>
 </tr>
 
 <tr>
-  <td style="text-align:left; padding:5px 7px; border-bottom:0.5px solid #ddd;">$V_{DZP}$ (PMOS deadzone) pre-simulation</td>
+  <td style="text-align:left; padding:5px 7px; border-bottom:0.5px solid #ddd;"><i>V</i><sub>DZP</sub> (PMOS deadzone) pre-simulation</td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd; background:#fafafa;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22"/><br><small><i>FF: 0.970 V | TT: 1.110 V | SS: 1.204 V</i></small></td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/sad.svg" width="22"/></td>
   <td style="text-align:center; padding:5px 7px; border-bottom:0.5px solid #ddd;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/sad.svg" width="22"/></td>
 </tr>
 
 <tr>
-  <td style="text-align:left; padding:5px 7px;">Extra transient sims needed to obtain $V_{DZ}$ and $R_{on}$</td>
+  <td style="text-align:left; padding:5px 7px;">Extra transient sims needed to obtain <i>V</i><sub>DZ</sub> and <i>R</i><sub>on</sub></td>
   <td style="text-align:center; padding:5px 7px; background:#fafafa;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/happy.svg" width="22"/> <b>Zero</b></td>
   <td style="text-align:center; padding:5px 7px;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/sad.svg" width="22"/><br><small><i>Multiple corner sweeps required</i></small></td>
   <td style="text-align:center; padding:5px 7px;"><img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/sad.svg" width="22"/><br><small><i>Full optimizer run per corner</i></small></td>
@@ -2054,12 +2048,12 @@ A structured comparison of the $R_{on}/g_m$ methodology against the $g_m/I_D$ me
 </table>
 
 <div style="font-size:8pt; line-height:1.7; border-top:0.75px solid #000; margin-top:5px; padding-top:4px;">
-Pre-simulation $V_{bias}$ predictions were within <b>&plusmn;75 mV</b> of post-simulation values; $I_{peak}$ predicted within ~15%.
+Pre-simulation V<sub>bias</sub> predictions were within <b>±75 mV</b> of post-simulation values; I<sub>peak</sub> predicted within ~15%.
 </div>
 
 <p>† J. Conrad <i>et al.</i>: <i>"Unfortunately, Section II-B is not really practical for designing a RAMP… This makes a design-by-equation cumbersome and not realizable."</i> [TCAS-I 2020, Sec. II-C]</p>
 <p>‡ J. Conrad <i>et al.</i>: <i>"PVT variations are not encountered during the circuit optimization, because this would require many transient simulations to evaluate one iteration of the optimizer."</i> [TCAS-I 2020, Sec. V-E]</p>
-<p>§ Deadzone bias values read from the $V_{bias}$ vs. $\log(R_{on}/g_m)$ LUT plot at $R_{on}/g_m = 50 \times 10^6$ (per device, post-multiplier), $I_{bias} = 0.5\,\mu$A (unit cell), $I_{bias} = 2\,\mu$A (Overall IBA).</p>
+<p>§ Deadzone bias values read from the V<sub>bias</sub> vs. log(R<sub>on</sub>/g<sub>m</sub>) LUT plot at R<sub>on</sub>/g<sub>m</sub> = 50 × 10<sup>6</sup> (per device, post-multiplier), I<sub>bias</sub> = 0.5 µA (unit cell), I<sub>bias</sub> = 2 µA (Overall IBA).</p>
 <p>¶ J. Conrad <i>et al.</i>: <i>"the optimizer goal for the accuracy was readjusted ×4 smaller, i.e. 0.25 for the cost function."</i> [TCAS-I 2020, Sec. IV-B.3]</p>
 <p>** J. Conrad <i>et al.</i>, Table II: 180 nm power cost function = 12.99 (target: 1.0), failing the power constraint by 13×.</p>
 <p style="margin-top:6px;">
@@ -2113,4 +2107,3 @@ This distinction becomes especially significant for dynamic amplifier design, wh
  [8] Y. Chae and G. Han, "Low Voltage, Low Power, Inverter-Based Switched-Capacitor Delta-Sigma Modulator," in IEEE Journal of Solid-State Circuits, vol. 44, no. 2, pp. 458-472, Feb. 2009, doi: [10.1109/JSSC.2008.2010973](https://ieeexplore.ieee.org/document/4768910).
 
  ---
-
