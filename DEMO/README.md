@@ -403,7 +403,7 @@ Two test conditions drive the optimization loop:
 <div align="center">
   <img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/ckt_images/conrad_et_al_tests.png" width="600"/>
   <br>
-  <em>Fig. 7: Test conditions used in the Conrad et al. optimizer-based Ring Amplifier design methodology [4]. (A) Both $V_{in}$ and $V_{out}$ shorted to trip point for small-signal parameter extraction. (B) Only $V_{in} = V_{cm}$ applied to verify common-mode output. (C) Maximum slew current evaluation to account for $I_{max,P} \neq I_{max,N}$ asymmetry.</em>
+  <em>Fig. 7: Test conditions used in the Conrad et al. optimizer-based Ring Amplifier design methodology [4]. (A) Both</em> $V_{in}$ <em>and</em> $V_{out}$ <em>shorted to trip point for small-signal parameter extraction. (B) Only</em> $V_{in} = V_{cm}$ <em>applied to verify common-mode output. (C) Maximum slew current evaluation to account for</em> $I_{max,P} \neq I_{max,N}$ <em>asymmetry.</em>
 </div>
 
 The cost function sweeps $V_{cm}$, $V_{DZP}$, $V_{DZN}$ (with $V_{DZP} = V_{DZN}$), and the widths of the PMOS ($M_P$) and NMOS ($M_N$), checking whether the resulting sizes are close to an integer multiplier of the unit cell and whether the small-signal parameters at Test (A) match the user specifications. The candidate sizes are then applied to Test (B): if $V_{out} = V_{cm}$ is satisfied, the sizes are accepted; otherwise the optimizer iterates. A third condition **(C)** additionally evaluates the maximum slew current of the PMOS and NMOS output devices and accounts for the asymmetry when $I_{max,P} \neq I_{max,N}$.
