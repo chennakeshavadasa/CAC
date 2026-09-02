@@ -1,6 +1,5 @@
-<a href="https://colab.research.google.com/drive/1q6r7tg8RoyLBaMS3b7EONwkPCBzEM2c1?usp=sharing">
-  <img src="https://raw.githubusercontent.com/chennakeshavadasa/CAC/refs/heads/main/DEMO/assets/colab-badge.svg?token=GHSAT0AAAAAAEHLOXHYMJ6CEOMFXT3KKMEQ2UXWHRA" alt="Open In Colab">
-</a>
+
+<a href="https://colab.research.google.com/drive/1q6r7tg8RoyLBaMS3b7EONwkPCBzEM2c1?usp=sharing" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 ---
 # **VLSI 2026 Code-a-Chip Competition**  
