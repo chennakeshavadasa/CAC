@@ -673,7 +673,7 @@ The table above describes each command; this diagram shows how they connect sequ
 <table align="center">
   <tr>
     <td align="center">
-      <img src="https://raw.githubusercontent.com/chennakeshavadasa/gmid_IHP130/refs/heads/main/Plots_Images/Notebook_Figs/control_block_annotated_flow_v3.svg" width="500"/>
+      <img src="https://raw.githubusercontent.com/chennakeshavadasa/CAC/main/DEMO/assets/control_block_annotated_flow_v3.png" width="500"/>
       <br>
       <h4 style="margin:4px 0; font-weight:normal;">
         <em>Fig. 8: .control block execution flow for the CAC on-resistance sweep</em>
